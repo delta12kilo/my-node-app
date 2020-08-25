@@ -1,17 +1,28 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookiSession = require('cookie-session');
+const passport = require('passport');
 const keys = require('./config/keys');
+
 require('./models/User');
 require('./services/passport');
 
-// name of app is "app"
+mongoose.connect(keys.mongoURI);
+
 const app = express();
+
+app.use(
+    cookiSession({
+        maxAge:30*24*60*60*1000,
+        keys: [keys.cookieKey],
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 require('./routes/authRoutes')(app);
 
-//mongo connection
-mongoose.connect(keys.mongoURI);
-// console.log('connect');
-//////////////////////////////
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
 
