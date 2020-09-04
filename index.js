@@ -27,7 +27,7 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 require('./routes/billingRouts')(app);
 
-if (process.env.NODE_ENV === 'producyion'){
+if (process.env.NODE_ENV === 'production'){
     // Express wiil serve up prof assets
     // like our main.js file,or main.css file!
     // test
