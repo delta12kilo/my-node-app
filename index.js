@@ -30,7 +30,7 @@ require('./routes/billingRouts')(app);
 if (process.env.NODE_ENV === 'producyion'){
     // Express wiil serve up prof assets
     // like our main.js file,or main.css file!
-
+    // test
     app.use(express.static('client/build'));
 
     // Express will serve up the index.html file
