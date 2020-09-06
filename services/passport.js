@@ -1,4 +1,3 @@
-
 const passport  = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys');
@@ -28,14 +27,14 @@ passport.use(
         proxy : true
     },
     async (accesToken, refresh,profile,done)=>{
-        const existingUser = await User.findOne({ googleId: profile.id,name:profile.displayName })
+        const existingUser = await User.findOne({ googleId: profile.id })
         // console.log('profile',profile.emails);
                 if(existingUser){
                    return done(null,existingUser);
                     //we already have user
                 }                
                     //we dont have user with this id
-                    const user = await new User({ googleId: profile.id,name:profile.displayName }).save()
+                    const user = await new User({ googleId: profile.id,name:profile.displayName,emails:profile.emails[0].value }).save()
                         // .then(user => done(null,user));
                     done(null,user);  
         }
